@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils';
 import { describe, it, expect, beforeEach } from 'vitest';
-import NavBar from '@/components/HeaderComponent.vue';
+import NavBar from '@/components/NavbarComponent.vue';
 import { createPinia, setActivePinia } from 'pinia';
 import { RouterLinkStub } from '@vue/test-utils';
 import { createMemoryHistory, createRouter } from 'vue-router';
@@ -51,7 +51,7 @@ describe('NavBar.vue', () => {
 
     await toggleButton.trigger('click');
     expect(navMenu.classes()).not.toContain('hidden');
-    expect(navMenu.classes()).toContain('block');
+    expect(navMenu.classes()).toContain('flex');
 
     await toggleButton.trigger('click');
     expect(navMenu.classes()).toContain('hidden');
