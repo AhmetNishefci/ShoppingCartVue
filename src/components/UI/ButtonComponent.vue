@@ -1,0 +1,51 @@
+<template>
+    <button
+      :class="[
+        'inline-flex items-center px-4 py-2 text-sm font-medium rounded focus:outline-none transition ease-in-out duration-150',
+        {
+          'bg-blue-600 text-white hover:bg-blue-700': type === 'primary',
+          'bg-red-600 text-white hover:bg-red-700': type === 'danger',
+          'bg-gray-600 text-white hover:bg-gray-700': type === 'secondary',
+          'opacity-50 cursor-not-allowed': disabled,
+        },
+        customClass
+      ]"
+      :disabled="disabled"
+      @click="handleClick"
+    >
+      <slot name="icon" />
+      <span v-if="$slots.default" :class="{ 'ml-2': $slots.icon }"><slot /></span>
+    </button>
+  </template>
+  
+  <script setup>
+  import { defineProps, defineEmits } from 'vue';
+  
+  const props = defineProps({
+    type: {
+      type: String,
+      default: 'primary',
+    },
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
+    customClass: {
+      type: String,
+      default: '',
+    },
+  });
+  
+  const emit = defineEmits(['click']);
+  
+  const handleClick = (event) => {
+    if (!props.disabled) {
+      emit('click', event);
+    }
+  };
+  </script>
+  
+  <style scoped>
+  /* Add any additional styles if needed */
+  </style>
+  
