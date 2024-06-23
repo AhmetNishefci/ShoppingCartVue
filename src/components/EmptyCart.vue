@@ -5,11 +5,6 @@
     </div>
   </template>
   
-  <script setup>
-  // You can add any additional logic or props here if needed
-  </script>
   
-  <style>
-  /* Add any additional styles if needed */
-  </style>
+
   

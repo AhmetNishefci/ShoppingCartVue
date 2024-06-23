@@ -10,7 +10,3 @@ import { useCartStore } from '../stores';
 
 const data = useCartStore();
 </script>
-
-<style>
-/* Add any additional styles if needed */
-</style>

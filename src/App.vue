@@ -1,12 +1,12 @@
 <template>
   <div class="container mx-auto p-4">
-    <HeaderComponent />
+    <NavbarComponent />
     <router-view></router-view>
   </div>
 </template>
 
 <script setup>
-import HeaderComponent from './components/HeaderComponent.vue';
+import NavbarComponent from './components/NavbarComponent.vue';
 </script>
 
 <style>
