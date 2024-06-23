@@ -1,12 +1,12 @@
 <template>
   <div class="container">
-    <!-- <Header /> -->
+    <HeaderComponent />
     <router-view></router-view>
   </div>
 </template>
 
 <script setup>
-  // import Header from './components/Header.vue'
+  import HeaderComponent from './components/HeaderComponent.vue'
 </script>
 
 
