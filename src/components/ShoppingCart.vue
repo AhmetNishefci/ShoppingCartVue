@@ -5,7 +5,7 @@
         <div class="p-4">
           <div v-if="data.getCartItems.length > 0">
             <!-- Header Row -->
-            <div class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal flex justify-between py-3 px-6">
+            <div class="bg-gray-200 text-gray-950 font-semibold uppercase text-sm leading-normal flex justify-between py-3 px-6">
               <span class="w-1/12 text-center">ID</span>
               <span class="w-2/12 text-center">Image</span>
               <span class="w-3/12 text-center">Name</span>
@@ -46,7 +46,7 @@
             <!-- Total Row -->
             <div class="bg-gray-100 flex justify-between items-center py-4 px-6 mt-4">
               <span class="text-lg font-bold">Total</span>
-              <span class="inline-block bg-red-500 text-white rounded-full px-6 py-2 shadow-lg">
+              <span class="inline-block bg-blue-500 text-white rounded-full px-6 py-2 shadow-lg">
                 ${{ data.cartItems.reduce((acc, item) => acc += item.price * item.quantity, 0) }}
               </span>
             </div>

@@ -1,7 +1,7 @@
 <template>
     <div class="container mx-auto p-4">
       <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-        <img :src="product.image" class="w-full h-64 object-cover" alt="Product Image" />
+        <img :src="product.image" class="h-full  object-cover" alt="Product Image" />
         <div class="p-4">
           <h2 class="text-2xl font-semibold mb-2">{{ product.name }}</h2>
           <p class="text-gray-700 mb-4">{{ product.description }}</p>
@@ -34,33 +34,31 @@
   import { useCartStore } from '../stores';
   import { ShoppingCartIcon } from '@heroicons/vue/solid';
   import ButtonComponent from './UI/ButtonComponent.vue';
-  import { computed, ref, watch } from 'vue';
+  import { computed } from 'vue';
   import { useRoute } from 'vue-router';
   
   const route = useRoute();
   const data = useCartStore();
-  const isAdded = ref(false);
   
   const product = computed(() => {
     return data.products.find(p => p.id === parseInt(route.params.productId));
   });
   
+  const isAdded = computed(() => {
+    return data.cartItems.some(item => item.id === product.value?.id);
+  });
+  
   const handleAddToCart = () => {
-    data.addToCart(product.value);
-    isAdded.value = true;
+    if (product.value) {
+      data.addToCart(product.value);
+    }
   };
   
   const handleRemoveFromCart = () => {
-    data.removeFromCart(product.value);
-    isAdded.value = false;
-  };
-  
-  // Watch the cart items to reset the button state if the item is removed from the cart
-  watch(() => data.getCartItems, (newVal) => {
-    if (!newVal.find(item => item.id === product.value.id)) {
-      isAdded.value = false;
+    if (product.value) {
+      data.removeFromCart(product.value);
     }
-  });
+  };
   </script>
   
   <style scoped>

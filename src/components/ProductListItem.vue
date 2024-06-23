@@ -20,6 +20,9 @@
           @click="handleRemoveFromCart"
           type="danger"
         >
+        <template #icon>
+            <TrashIcon class="h-5 w-5 mr-2" />
+          </template>
           <span>Remove from Cart</span>
         </ButtonComponent>
         <ButtonComponent
@@ -35,8 +38,8 @@
 
 <script setup>
 import { useCartStore } from '../stores'; 
-import { ShoppingCartIcon } from '@heroicons/vue/solid';
-import { ref, watch } from 'vue';
+import { ShoppingCartIcon, TrashIcon } from '@heroicons/vue/solid';
+import { computed } from 'vue';
 import { useRouter } from 'vue-router';
 import ButtonComponent from './UI/ButtonComponent.vue';
 
@@ -48,29 +51,23 @@ const props = defineProps({
 });
 
 const data = useCartStore();
-const isAdded = ref(false);
 const router = useRouter();
+
+const isAdded = computed(() => {
+  return data.cartItems.some(item => item.id === props.product.id);
+});
 
 const handleAddToCart = () => {
   data.addToCart(props.product);
-  isAdded.value = true;
 };
 
 const handleRemoveFromCart = () => {
   data.removeFromCart(props.product);
-  isAdded.value = false;
 };
 
 const goToDetails = () => {
   router.push({ name: 'product-details', params: { productId: props.product.id } });
 };
-
-// Watch the cart items to reset the button state if the item is removed from the cart
-watch(() => data.getCartItems, (newVal) => {
-  if (!newVal.find(item => item.id === props.product.id)) {
-    isAdded.value = false;
-  }
-});
 </script>
 
 <style>
