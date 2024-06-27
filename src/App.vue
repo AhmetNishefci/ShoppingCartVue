@@ -1,14 +1,20 @@
 <template>
   <div class="container mx-auto p-4">
     <NavbarComponent />
-    <router-view></router-view>
+    <Loading :active="loading" :can-cancel="false" :is-full-page="true" color="#000" background-color="#ffffff" />
+    <div v-if="!loading">
+      <router-view />
+    </div>
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
+import { computed } from 'vue';
 import NavbarComponent from './components/NavbarComponent.vue';
-</script>
+import { useCartStore } from './stores';
+import Loading from 'vue-loading-overlay';
+import 'vue-loading-overlay/dist/css/index.css';
 
-<style>
-/* Add any additional styles if needed */
-</style>
+const cartStore = useCartStore();
+const loading = computed(() => cartStore.loading);
+</script>

@@ -37,7 +37,7 @@
               <span class="w-full md:w-2/12 text-center">${{ item.price * item.quantity }}</span>
               <span class="w-full md:w-1/12 text-center my-2 md:my-0">
                 <TrashIcon 
-                  @click="data.removeFromCart(item)"
+                  @click="data.removeFromCart(item.id)"
                   class="h-5 w-5 cursor-pointer text-red-500 hover:text-red-700 mx-auto" 
                 />
               </span>

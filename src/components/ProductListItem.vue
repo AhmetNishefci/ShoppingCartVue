@@ -32,7 +32,7 @@
           type="secondary"
           class="w-full md:w-auto"
         >
-        <template #icon>
+          <template #icon>
             <InformationCircleIcon class="h-5 w-5 mr-2" />
           </template>
           <span>Details</span>
@@ -42,36 +42,36 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
+import { computed, defineProps } from 'vue';
+import { useRouter } from 'vue-router';
 import { useCartStore } from '../stores'; 
 import { InformationCircleIcon, ShoppingCartIcon, TrashIcon } from '@heroicons/vue/solid';
-import { computed } from 'vue';
-import { useRouter } from 'vue-router';
 import ButtonComponent from './UI/ButtonComponent.vue';
 
-const props = defineProps({
-  product: {
-    type: Object,
-    required: true
-  }
-});
+// Define the types for props
+import type { Product } from '../stores';
+
+const props = defineProps<{
+  product: Product;
+}>();
 
 const data = useCartStore();
 const router = useRouter();
 
-const isAdded = computed(() => {
+const isAdded = computed<boolean>(() => {
   return data.cartItems.some(item => item.id === props.product.id);
 });
 
-const handleAddToCart = () => {
+const handleAddToCart = (): void => {
   data.addToCart(props.product);
 };
 
-const handleRemoveFromCart = () => {
-  data.removeFromCart(props.product);
+const handleRemoveFromCart = (): void => {
+  data.removeFromCart(props.product.id);
 };
 
-const goToDetails = () => {
+const goToDetails = (): void => {
   router.push({ name: 'product-details', params: { productId: props.product.id } });
 };
 </script>
